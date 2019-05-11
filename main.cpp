@@ -32,7 +32,7 @@ int main(int argc, char *argv[])
 	glMatrixMode(GL_PROJECTION);
 	// glLoadIdentity();
 	glOrtho(0, WINSIZE_WID, 0, WINSIZE_HEI, -1.0, 1.0);
-	glMatrixMode(GL_MODELVIEW);
+	// glMatrixMode(GL_MODELVIEW);
 
 	glutDisplayFunc(drawTriangle);
 	glutSpecialFunc(handleKey);
@@ -63,6 +63,7 @@ void drawTriangle()
 
 void handleKey(int key, int x, int y)
 {
+	bool exitReq = false;
 	switch(key)
 	{
 	case GLUT_KEY_RIGHT:
@@ -77,6 +78,17 @@ void handleKey(int key, int x, int y)
 	case GLUT_KEY_DOWN:
 		posy -= 10;
 		break;
+	case GLUT_KEY_HOME:
+		exitReq = true;
+		break;
 	}
-	glutPostRedisplay();
+	if (exitReq)
+	{
+		glutLeaveMainLoop();
+	}
+	else
+	{
+		glutPostRedisplay();
+	}
+	
 }
